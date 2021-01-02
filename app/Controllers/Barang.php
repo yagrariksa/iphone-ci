@@ -83,8 +83,10 @@ class Barang extends BaseController
 
 		if ($this->request->getMethod() === 'post') {
 			$model->save([
-				'nama_barang'	=> $this->request->getPost('nama_barang'),
+                'nama_barang'	=> $this->request->getPost('nama_barang'),
+				'satuan_barang'	=> $this->request->getPost('satuan_barang'),
                 'stok_barang'	=> $this->request->getPost('stok_barang'),
+                'harga_barang'  => $this->request->getPost('harga_barang'),
                 'kategori'      => $this->request->getPost('kategori'),
 			]);
 		}
@@ -123,7 +125,9 @@ class Barang extends BaseController
 		if ($this->request->getMethod() === 'post') {
             $simpan = [
                 'nama_barang'	=> $this->request->getPost('nama_barang'),
+				'satuan_barang'	=> $this->request->getPost('satuan_barang'),
                 'stok_barang'	=> $this->request->getPost('stok_barang'),
+                'harga_barang'  => $this->request->getPost('harga_barang'),
                 'kategori'      => $this->request->getPost('kategori'),
             ];
 

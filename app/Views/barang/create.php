@@ -14,8 +14,16 @@
                     <input name="nama_barang" type="text" class="form-control" id="inputNama" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group">
+                    <label for="inputSatuan">Satuan Barang</label>
+                    <input name="satuan_barang" type="text" class="form-control" id="inputSatuan" aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
                     <label for="inputStok">Stok Barang</label>
                     <input name="stok_barang" type="number" class="form-control" id="inputStok">
+                </div>
+                <div class="form-group">
+                    <label for="inputHarga">Harga Barang</label>
+                    <input name="harga_barang" type="number" class="form-control" id="inputHarga">
                 </div>
                 <div class="form-group">
                     <label for="selectKategori">Pilih Kategori</label>

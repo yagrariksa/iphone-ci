@@ -16,6 +16,10 @@ class Kategoris extends Migration
 			'nama_kategori' => [
 				'type'				=> 'VARCHAR',
 				'constraint'		=> 100,		
+			],
+			'keterangan' => [
+				'type'				=> 'VARCHAR',
+				'constraint'		=> 100,		
 			]
 		]);
 		$this->forge->addKey('kategori_id');

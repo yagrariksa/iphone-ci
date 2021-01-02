@@ -35,6 +35,8 @@
                         <th scope="col">#</th>
                         <th scope="col">Nama Barang</th>
                         <th scope="col">Stok</th>
+                        <th scope="col">satuan</th>
+                        <th scope="col">harga</th>
                         <th scope="col">Kategori</th>
                         <th scope="col">action</th>
                     </tr>
@@ -47,6 +49,9 @@
                             <th scope="row"><?= esc($count); ?></th>
                             <td><?= esc($item['nama_barang']); ?></td>
                             <td><?= esc($item['stok_barang']); ?></td>
+                            <td><?= esc($item['satuan_barang']); ?></td>
+                            <td><?= esc($item['harga_barang']); ?></td>
+
                             <td><?= esc($item['kategori_text']); ?></td>
                             <td>
                                 <a href="/barang/delete/<?= esc($item['barang_id']); ?>"><button class="btn btn-danger">DELETE</button></a>

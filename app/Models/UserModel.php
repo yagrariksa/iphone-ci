@@ -6,7 +6,7 @@ class UserModel extends Model {
 
     protected $table = 'user';
 
-    protected $allowedFields = ['email', 'password'];
+    protected $allowedFields = ['email', 'password','admin'];
 
     public function getAll(){
         return $this->findAll();

@@ -20,6 +20,10 @@ class Users extends Migration
 			'password' => [
 				'type'				=> 'VARCHAR',
 				'constraint'		=> 100,	
+			],
+			'admin' => [
+				'type'				=> 'BOOLEAN',
+				'default'			=> false,
 			]
 		]);
 		$this->forge->addKey('user_id');

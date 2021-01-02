@@ -13,6 +13,11 @@
                     <label for="inputNama">Nama Kategori</label>
                     <input name="nama_kategori" type="text" class="form-control" id="inputNama" aria-describedby="emailHelp">
                 </div>
+                <div class="form-group">
+                    <label for="inputKeterangan">Keterangan</label>
+                    <textarea rows="3" name="keterangan" type="text" class="form-control" id="inputKeterangan">
+                    </textarea>
+                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>

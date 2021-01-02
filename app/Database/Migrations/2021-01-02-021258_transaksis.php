@@ -24,6 +24,14 @@ class Transaksis extends Migration
 			],
 			'waktu_transaksi' 	=> [
 				'type'				=> 'TIMESTAMP',
+			],
+			'total'		=> [
+				'type'				=> 'INT',
+				'constraint'		=> 14,		
+			],
+			'total_barang'		=> [
+				'type'				=> 'INT',
+				'constraint'		=> 5,		
 			]
 		]);
 		$this->forge->addKey('transaksi_id');

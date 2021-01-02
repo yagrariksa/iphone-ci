@@ -6,7 +6,7 @@ class KategoriModel extends Model {
 
     protected $table = 'kategori';
 
-    protected $allowedFields = ['nama_kategori'];
+    protected $allowedFields = ['nama_kategori','keterangan'];
 
     public function getAll(){
         return $this->findAll();

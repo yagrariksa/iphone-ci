@@ -14,8 +14,16 @@
                     <input value="<?= esc($data['nama_barang']); ?>" name="nama_barang" type="text" class="form-control" id="inputNama" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group">
+                    <label for="inputSatuan">Satuan Barang</label>
+                    <input value="<?= esc($data['satuan_barang']); ?>" name="satuan_barang" type="text" class="form-control" id="inputSatuan" aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
                     <label for="inputStok">Stok Barang</label>
                     <input value="<?= esc($data['stok_barang']); ?>" name="stok_barang" type="number" class="form-control" id="inputStok">
+                </div>
+                <div class="form-group">
+                    <label for="inputHarga">Harga Barang</label>
+                    <input value="<?= esc($data['harga_barang']); ?>" name="harga_barang" type="number" class="form-control" id="inputHarga">
                 </div>
                 <div class="form-group">
                     <label for="selectKategori">Pilih Kategori</label>

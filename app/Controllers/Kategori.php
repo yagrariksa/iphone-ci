@@ -48,7 +48,8 @@ class Kategori extends BaseController
 
         if ($this->request->getMethod() === 'post') {
 			$model->save([
-				'nama_kategori'	=> $this->request->getPost('nama_kategori'),
+                'nama_kategori'	=> $this->request->getPost('nama_kategori'),
+                'keterangan'	=> $this->request->getPost('keterangan'),
 			]);
         }
         
@@ -83,6 +84,7 @@ class Kategori extends BaseController
         if ($this->request->getMethod() === 'post') {
             $simpan = [
                 'nama_kategori'	=> $this->request->getPost('nama_kategori'),
+                'keterangan'	=> $this->request->getPost('keterangan'),
             ];
             try {
                 $model->where('kategori_id',$id)->set($simpan)->update();
