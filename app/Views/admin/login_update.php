@@ -1,7 +1,9 @@
-<?php require('header.php'); ?>
 <div class="container">
     <div class="row justify-content-md-center align-items-center" style="height: 80vh;">
         <div class="col-12 col-lg-6">
+            <p class="h1 mb-4">
+                Form Update User
+            </p>
             <form action="/user/edit/<?php echo($data['user_id']) ?>" method="POST">
                 <?php csrf_field() ?>
                 <div class="form-group">
@@ -21,5 +23,3 @@
         </div>
     </div>
 </div>
-
-<?php require('footer.php'); ?>

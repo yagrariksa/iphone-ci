@@ -50,7 +50,7 @@
                     ?></td>
 
                     <td>
-                        <a href="/user/delete/<?= esc($item['user_id']); ?>"><button class="btn btn-danger">DELETE</button></a>
+                        <!-- <a href="/user/delete/<?= esc($item['user_id']); ?>"><button class="btn btn-danger">DELETE</button></a> -->
                         <a href="/user/update/<?= esc($item['user_id']); ?>"><button class="btn btn-success">UPDATE</button></a>
                     </td>
                 </tr>

@@ -17,6 +17,11 @@ class Transaksis extends Migration
 				'type'				=> 'INT',
 				'constraint'		=> 5,		
 			],
+			'alamat'			=> [
+				'type'				=> 'VARCHAR',
+				'constraint'		=> 250,
+				'null'				=> true,
+			],
 			'status'			=> [
 				'type'				=> 'VARCHAR',
 				'constraint'		=> 250,
@@ -24,6 +29,7 @@ class Transaksis extends Migration
 			],
 			'waktu_transaksi' 	=> [
 				'type'				=> 'TIMESTAMP',
+				'default'			=> 'CURRENT_TIMESTAMP',
 			],
 			'total'		=> [
 				'type'				=> 'INT',

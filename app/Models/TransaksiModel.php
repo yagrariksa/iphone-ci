@@ -8,7 +8,7 @@ class TransaksiModel extends Model {
 
     protected $allowedFields = [
         'id_pembeli','status',
-        'total','total_barang'
+        'total','total_barang','alamat'
     ];
 
     public function getAll(){

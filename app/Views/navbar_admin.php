@@ -16,8 +16,12 @@
                 echo("active");
             }
             ?>" href="/kategori">Kategori</a>
-            <a class="nav-link" href="/user">User</a>
-            <a class="ml-4 btn btn-danger"  href="/admin/logout">Keluar</a>
+            <a class="nav-link  <?php 
+            if($session->get('page') === 'user'){
+                echo("active");
+            }
+            ?>" href="/user">User</a>
+            <a class="ml-4 btn btn-danger"  href="/user/logout">Keluar</a>
         </div>
     </div>
     </div>

@@ -1,15 +1,20 @@
-<div class="container my-4">
+<div class="container">
+    <div class="row my-4">
+        <div class="col">
+            <p class="h1">Daftar Transaksiku</p>
+        </div>
+    </div>
     <div class="row">
         <div class="col">
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">HandPhone</th>
-                        <th scope="col">Harga</th>
-                        <th scope="col">Kategori</th>
-                        <th scope="col">Stok</th>
-                        <th scope="col">Aksi</th>
+                        <th scope="col">status/kode</th>
+                        <th scope="col">waktu transaksi</th>
+                        <th scope="col">total</th>
+                        <th scope="col">total barang</th>
+                        <th scope="col">aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -19,14 +24,14 @@
                     ?>
                         <tr>
                             <th scope="row"><?= esc($count) ?></th>
-                            <td><?= esc($item['nama_barang']) ?></td>
-                            <td><?= esc($item['harga_barang']) ?></td>
-                            <td><?= esc($item['kategori_text']) ?></td>
-                            <td><?= esc($item['stok_barang']) ?></td>
+                            <td><?= esc($item['status']) ?></td>
+                            <td><?= esc($item['waktu_transaksi']) ?></td>
+                            <td><?= esc($item['total']) ?></td>
+                            <td><?= esc($item['total_barang']) ?></td>
                             <td>
-                                <a href="/customer/detail/<?= esc($item['barang_id']) ?>">
+                                <a href="/customer/transaksidetail/<?= esc($item['transaksi_id']) ?>">
                                     <button class="btn btn-primary">
-                                        Lihat detil
+                                        Lihat Detail
                                     </button>
                                 </a>
                             </td>
@@ -35,7 +40,6 @@
                         $count++;
                     endforeach;
                     ?>
-
                 </tbody>
             </table>
         </div>
