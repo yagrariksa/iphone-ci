@@ -1,3 +1,7 @@
+# Project simple marketplace 
+
+Simple marketplace to sell iPhones and Apple branded goods, using CodeIgniter version 4 framework, and using Session manually, my first project and experience using CodeIgniter
+
 # CodeIgniter 4 Application Starter
 
 ## What is CodeIgniter?
