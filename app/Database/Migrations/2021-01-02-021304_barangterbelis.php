@@ -17,6 +17,10 @@ class Barangterbelis extends Migration
 				'type'				=> 'INT',
 				'constraint'		=> 5,		
 			],
+			'barang_id'			=> [
+				'type'				=> 'INT',
+				'constraint'		=> 5
+			],
 			'nama_barang'		=> [
 				'type'				=> 'VARCHAR',
 				'constraint'		=> 250

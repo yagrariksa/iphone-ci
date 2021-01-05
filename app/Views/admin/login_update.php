@@ -8,7 +8,7 @@
                 <?php csrf_field() ?>
                 <div class="form-group">
                     <label for="inputUsername">Username</label>
-                    <input value="<?= esc($data['email']); ?>" name="email" type="email" class="form-control" id="inputUsername" aria-describedby="emailHelp">
+                    <input value="<?= esc($data['email']); ?>" name="email" type="text" class="form-control" id="inputUsername" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group">
                     <label for="inputPassword">Old Password</label>

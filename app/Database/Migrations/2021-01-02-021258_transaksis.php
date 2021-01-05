@@ -29,7 +29,9 @@ class Transaksis extends Migration
 			],
 			'waktu_transaksi' 	=> [
 				'type'				=> 'TIMESTAMP',
-				'default'			=> 'CURRENT_TIMESTAMP',
+			],
+			'updated_at' 	=> [
+				'type'				=> 'TIMESTAMP',
 			],
 			'total'		=> [
 				'type'				=> 'INT',

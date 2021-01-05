@@ -9,7 +9,7 @@ class BarangTerbeliModel extends Model {
     protected $allowedFields = [
         'transaksi_id','nama_barang',
         'harga_barang','jumlah_beli',
-        'subtotal'
+        'subtotal', 'barang_id',
     ];
 
     public function getAll(){

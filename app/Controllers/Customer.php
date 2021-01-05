@@ -325,7 +325,8 @@ class Customer extends BaseController
             $subtotal = (int)$jumlah_beli * (int)$barang['harga_barang'];
 
             $barterModel->save([
-                'transaksi_id' => $id_cart,
+                'transaksi_id'  => $id_cart,
+                'barang_id'     => $barang['barang_id'],
                 'nama_barang'   => $barang['nama_barang'],
                 'harga_barang'  => $barang['harga_barang'],
                 'jumlah_beli'   => $jumlah_beli,
@@ -348,11 +349,23 @@ class Customer extends BaseController
 
         $barterModel = new BarangTerbeliModel();
         $transaksiModel = new TransaksiModel();
+        $barangModel = new BarangModel();
 
         $id_cart = $session->get('cart_id');
         $user_id = $session->get('user');
 
         if ($this->request->getMethod() === 'post') {
+
+            // mengambil data cart
+            $cart = $barterModel->where('transaksi_id', $id_cart)->findAll();
+
+            foreach($cart as $item){
+                $cek = $barangModel->where('barang_id', $item['barang_id'])->first();
+                if($cek['stok_barang'] < $item['jumlah_beli']){
+                    $session->setFlashdata('error', $cek['nama_barang'] . " out of stock");
+                    return redirect()->back();
+                }
+            }
 
             $alamat = $this->request->getPost('alamat');
             // membuat random string identifier
@@ -360,9 +373,6 @@ class Customer extends BaseController
                 $random = $this->getName(10);
                 $detect = $transaksiModel->where('status', $random)->first();
             }while($detect != null);
-
-            // mengambil data cart
-            $cart = $barterModel->where('transaksi_id', $id_cart)->findAll();
 
             // menghitung jumlah barang
             // dan jumlah biaya
@@ -393,6 +403,19 @@ class Customer extends BaseController
                     'jumlah_beli'   => $item['jumlah_beli'],
                     'subtotal'   => $item['subtotal'],
                 ]);
+
+                $cek = $barangModel->where('barang_id', $item['barang_id'])->first();
+
+                $value =  (int)$cek['stok_barang'] - (int)$item['jumlah_beli'];
+                $simpan = [
+                    'nama_barang'    => $cek['nama_barang'],
+                    'satuan_barang'    => $cek['satuan_barang'],
+                    'stok_barang'    => $value,
+                    'harga_barang'  => $cek['harga_barang'],
+                    'kategori'      => $cek['kategori'],
+                ];
+
+                $barangModel->where('barang_id', $item['barang_id'])->set($simpan)->update();
 
                 // menghapus barang yang ada di keranjang
                 $barterModel->where('barangbeli_id', $item['barangbeli_id'])->delete();
@@ -432,6 +455,7 @@ class Customer extends BaseController
 
         echo view('cust/transaksiku', [
             'data' => $data,
+            'session' => $session,
         ]);
 
         echo view('footer');

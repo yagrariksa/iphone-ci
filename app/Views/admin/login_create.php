@@ -7,7 +7,7 @@
                 <?php csrf_field() ?>
                 <div class="form-group">
                     <label for="inputUsername">Username</label>
-                    <input required name="email" type="email" class="form-control" id="inputUsername" aria-describedby="emailHelp">
+                    <input required name="email" type="text" class="form-control" id="inputUsername" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group">
                     <label for="inputPassword">Password</label>

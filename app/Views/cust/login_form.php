@@ -11,7 +11,7 @@
                          echo($session->getFlashData('error_email'));
                      }
                       ?>"
-                     name="email" type="email" class="form-control" id="inputUsername" aria-describedby="emailHelp">
+                     name="email" type="text" class="form-control" id="inputUsername" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group">
                     <label for="inputPassword">Password</label>

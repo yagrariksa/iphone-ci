@@ -5,6 +5,11 @@ use CodeIgniter\Model;
 class TransaksiModel extends Model {
 
     protected $table = 'transaksi';
+    protected $primaryKey = 'transaksi_id';
+
+    protected $useTimestamps = true;
+    protected $createdField  = 'waktu_transaksi';
+    protected $updatedField  = 'updated_at';
 
     protected $allowedFields = [
         'id_pembeli','status',

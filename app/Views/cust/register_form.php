@@ -5,7 +5,7 @@
                 <?php csrf_field() ?>
                 <div class="form-group">
                     <label for="inputUsername">Email</label>
-                    <input name="email" type="email" class="form-control" id="inputUsername" aria-describedby="emailHelp">
+                    <input name="email" type="text" class="form-control" id="inputUsername" aria-describedby="emailHelp">
                     <?php 
                      if($session->has('error')){
                          echo("<small>Email sudah digunakan</small>");

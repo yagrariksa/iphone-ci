@@ -10,7 +10,7 @@
                                     if ($session->has('error_email')) {
                                         echo ($session->getFlashData('error_email'));
                                     }
-                                    ?>" name="email" required type="email" class="form-control" id="inputUsername" aria-describedby="emailHelp">
+                                    ?>" name="email" required type="text" class="form-control" id="inputUsername" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group">
                     <label for="inputPassword">Password</label>

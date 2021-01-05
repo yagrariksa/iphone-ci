@@ -8,6 +8,13 @@
     </div>
     <div class="row">
         <div class="col">
+            <div class="form-group">
+                <?php
+                if ($session->has('error')) {
+                    echo ("<div class='alert alert-danger'>" . $session->getFlashData('error') . "</div>");
+                }
+                ?>
+            </div>
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
