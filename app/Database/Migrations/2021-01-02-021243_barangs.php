@@ -21,6 +21,10 @@ class Barangs extends Migration
 				'type'				=> 'VARCHAR',
 				'constraint'		=> 100,		
 			],
+			'link_gambar' 		=> [
+				'type'				=> 'VARCHAR',
+				'constraint'		=> 100,		
+			],
 			'harga_barang' 		=> [
 				'type'				=> 'INT',
 				'constraint'		=> 14,		

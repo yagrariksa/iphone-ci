@@ -18,6 +18,10 @@
                     <input name="satuan_barang" type="text" class="form-control" id="inputSatuan" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group">
+                    <label for="inputGambar">Kode Gambar</label>
+                    <input name="link_gambar" type="text" class="form-control" id="inputGambar" aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
                     <label for="inputStok">Stok Barang</label>
                     <input name="stok_barang" type="number" class="form-control" id="inputStok">
                 </div>

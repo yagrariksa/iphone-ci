@@ -108,6 +108,7 @@ class Barang extends BaseController
                 'stok_barang'    => $this->request->getPost('stok_barang'),
                 'harga_barang'  => $this->request->getPost('harga_barang'),
                 'kategori'      => $this->request->getPost('kategori'),
+                'link_gambar'   => $this->request->getPost('link_gambar'),
             ]);
         }
 
@@ -151,6 +152,7 @@ class Barang extends BaseController
                 'stok_barang'    => $this->request->getPost('stok_barang'),
                 'harga_barang'  => $this->request->getPost('harga_barang'),
                 'kategori'      => $this->request->getPost('kategori'),
+                'link_gambar'   => $this->request->getPost('link_gambar'),
             ];
 
             try {

@@ -75,7 +75,23 @@
             font-family: 'Montserrat', sans-serif;
             ;
         }
+
+        #bg-valid {
+            background-image: url(https://drive.google.com/uc?export=view&id=1b2Lu9rQ6fnW1xJN86sq1wilTpv3RSTqR);
+            background-position: center;
+            background-repeat: no-repeat;
+            /* background-attachment: fixed; */
+            background-size: 100%;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            filter: opacity(60%);
+            /*     display: none; */
+        }
     </style>
 </head>
 
 <body>
+
+    <div id="bg-valid"> </div>

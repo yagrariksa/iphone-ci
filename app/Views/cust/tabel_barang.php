@@ -1,43 +1,26 @@
 <div class="container my-4">
     <div class="row">
-        <div class="col">
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">HandPhone</th>
-                        <th scope="col">Harga</th>
-                        <th scope="col">Kategori</th>
-                        <th scope="col">Stok</th>
-                        <th scope="col">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $count = 1;
-                    foreach ($data as $item) :
-                    ?>
-                        <tr>
-                            <th scope="row"><?= esc($count) ?></th>
-                            <td><?= esc($item['nama_barang']) ?></td>
-                            <td><?= esc($item['harga_barang']) ?></td>
-                            <td><?= esc($item['kategori_text']) ?></td>
-                            <td><?= esc($item['stok_barang']) ?></td>
-                            <td>
-                                <a href="/customer/detail/<?= esc($item['barang_id']) ?>">
-                                    <button class="btn btn-primary">
-                                        Lihat detil
-                                    </button>
-                                </a>
-                            </td>
-                        </tr>
-                    <?php
-                        $count++;
-                    endforeach;
-                    ?>
+        <?php
+        $count = 1;
+        foreach ($data as $item) :
+        ?>
+            <div class="col-3">
 
-                </tbody>
-            </table>
-        </div>
+                <div class="card" style="width: 18rem;">
+                    <img src="https://drive.google.com/uc?export=view&id=<?= esc($item['link_gambar']) ?>" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= esc($item['nama_barang']) ?></h5>
+                        <small class="subtitle"><?= esc($item['kategori_text']) ?></small>
+                        <p class="card-text"><?= esc($item['harga_barang']) ?></p>
+                        <a href="/customer/detail/<?= esc($item['barang_id']) ?>" class="btn btn-primary">Lihat detil</a>
+                    </div>
+                </div>
+            </div>
+
+        <?php
+            $count++;
+        endforeach;
+        ?>
+
     </div>
 </div>
