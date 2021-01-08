@@ -1,5 +1,9 @@
 <div class="container">
     <div class="row">
+        <div class="col-12 col-md-6 col-lg-3">
+            <img src="https://drive.google.com/uc?export=view&id=<?= esc($data['link_gambar']) ?>" class="card-img-top" alt="...">
+
+        </div>
         <div class="col">
             <p class="h1"><?= esc($data['nama_barang']) ?></p>
             <p class="h3">Rp <?= esc($data['harga_barang']) ?></p>

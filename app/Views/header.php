@@ -41,6 +41,11 @@
             color: white !important;
         }
 
+        .bg-admin {
+            background-color: #6f42c1 !important;
+            color: white !important;
+        }
+
         .navbar-brand {
             color: #fff;
             font-weight: 700;
@@ -81,7 +86,7 @@
             background-position: center;
             background-repeat: no-repeat;
             /* background-attachment: fixed; */
-            background-size: 100%;
+            background-size: cover;
             position: fixed;
             width: 100%;
             height: 100%;

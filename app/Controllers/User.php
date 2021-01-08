@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\UserModel;
+use App\Models\AdminModel;
 
 class User extends BaseController
 {
@@ -62,7 +62,7 @@ class User extends BaseController
 	{
 		$session = \Config\Services::session();
 
-		$userModel = new UserModel();
+		$userModel = new AdminModel();
 
 		// cek metode akses nya post bukan
 		if ($this->request->getMethod() === 'post') {
@@ -71,7 +71,7 @@ class User extends BaseController
 
 			// cek ada email kek gitu ga
 			// cek email ini admin ga
-			if ($cek != null && $cek['admin']) {
+			if ($cek != null) {
 
 				// cek password benar atau tidak
 				if (password_verify($this->request->getPost('password'), $cek['password'])) {
@@ -137,13 +137,12 @@ class User extends BaseController
 	{
 		$session = \Config\Services::session();
 
-		$model = new UserModel();
+		$model = new AdminModel();
 
 		if ($this->request->getMethod() === 'post') {
 			$model->save([
 				'email'		=> $this->request->getPost('email'),
 				'password'	=> password_hash($this->request->getPost('password'), PASSWORD_BCRYPT),
-				'admin'		=> true,
 			]);
 			$session->set('auth', true);
 			$session->set('admin', true);
@@ -164,9 +163,9 @@ class User extends BaseController
 		if ($this->cekLoginAdmin()) {
 			$session = \Config\Services::session();
 
-			$model = new UserModel();
+			$model = new AdminModel();
 
-			$data = $model->where('user_id', $id)->first();
+			$data = $model->where('admin_id', $id)->first();
 			// dd($data['user_id']);
 
 			echo view('header', [
@@ -197,16 +196,16 @@ class User extends BaseController
 	{
 		$session = \Config\Services::session();
 
-		$model = new UserModel();
+		$model = new AdminModel();
 		if ($this->request->getMethod() === 'post') {
-			$data = $model->where('user_id', $id)->first();
+			$data = $model->where('admin_id', $id)->first();
 			if (password_verify($this->request->getPost('oldpassword'), $data['password'])) {
 				$simpan = [
 					'email'		=> $this->request->getPost('email'),
 					'password'	=> password_hash($this->request->getPost('password'), PASSWORD_BCRYPT)
 				];
 
-				$model->where('user_id', $id)->set($simpan)->update();
+				$model->where('admin_id', $id)->set($simpan)->update();
 				$session->setFlashdata('msg', 'BERHASIL');
 			} else {
 				echo ("PASSWORD SALAH");
@@ -222,7 +221,7 @@ class User extends BaseController
 	 */
 	public function delete($id)
 	{
-		$model = new UserModel();
+		$model = new AdminModel();
 		$model->where('user_id', $id)->delete();
 		return redirect()->to('/user/got');
 	}
@@ -237,7 +236,7 @@ class User extends BaseController
 		if ($this->cekLoginAdmin()) {
 			$session = \Config\Services::session();
 
-			$model = new UserModel();
+			$model = new AdminModel();
 			$data = $model->getAll();
 
 			echo view('header', [

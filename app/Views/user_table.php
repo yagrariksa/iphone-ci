@@ -30,7 +30,6 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Email</th>
-                <th scope="col">Admin</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -41,17 +40,10 @@
                 <tr>
                     <th scope="row"><?= esc($count); ?></th>
                     <td><?= esc($item['email']); ?></td>
-                    <td><?php 
-                    if($item['admin']){
-                        echo("Admin");
-                    }else{
-                        echo("Customer");
-                    }
-                    ?></td>
 
                     <td>
-                        <!-- <a href="/user/delete/<?= esc($item['user_id']); ?>"><button class="btn btn-danger">DELETE</button></a> -->
-                        <a href="/user/update/<?= esc($item['user_id']); ?>"><button class="btn btn-success">UPDATE</button></a>
+                        <!-- <a href="/user/delete/<?= esc($item['admin_id']); ?>"><button class="btn btn-danger">DELETE</button></a> -->
+                        <a href="/user/update/<?= esc($item['admin_id']); ?>"><button class="btn btn-success">UPDATE</button></a>
                     </td>
                 </tr>
 

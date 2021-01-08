@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\BarangTerbeliModel;
 use App\Models\TransaksiModel;
-use App\Models\UserModel;
+use App\Models\CustomerModel;
 
 class Transaksi extends BaseController
 {
@@ -13,13 +13,13 @@ class Transaksi extends BaseController
         $session->set('page', 'transaksi');
 
         $model = new TransaksiModel();
-        $usermodel = new UserModel();
+        $usermodel = new CustomerModel();
         $data = $model->where('status !=','KERANJANG')->orderBy('waktu_transaksi', 'DESC')->findAll();
 
         $dataf = [];
         foreach($data as $item){
-            $user = $usermodel->where('user_id',$item['id_pembeli'])->first();
-            $item['pembeli'] = $user['email'];
+            $user = $usermodel->where('customer_id',$item['id_pembeli'])->first();
+            $item['pembeli'] = $user['nama'];
             array_push($dataf, $item);
         }
 
@@ -45,8 +45,11 @@ class Transaksi extends BaseController
 
         $transaksiModel = new TransaksiModel();
         $barterModel = new BarangTerbeliModel();
+        $customerModel = new CustomerModel();
 
+        
         $transaksi = $transaksiModel->where('transaksi_id',$id)->first();
+        $customer = $customerModel->where('customer_id',$transaksi['id_pembeli'])->first();
         $data = $barterModel->where('transaksi_id', $transaksi['transaksi_id'])->findAll();
 
         echo view('header', [
@@ -60,6 +63,7 @@ class Transaksi extends BaseController
         echo view('transaksi/detail', [
             'transaksi' => $transaksi,
             'data' => $data,
+            'customer' => $customer,
         ]);
 
         echo view('footer');

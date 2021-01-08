@@ -19,17 +19,12 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+
+            <div class="modal-footer">
                 <form method="POST" action="/customer/chekcout">
                     <?php csrf_field(); ?>
-                    <div class="form-group">
-                        <label for="inputAlamat">Alamat address</label>
-                        <textarea name="alamat" rows="3"  type="text" class="form-control" id="inputAlamat"></textarea>
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-success">Checkout</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Checkout</button>
                 </form>
 
             </div>

@@ -25,6 +25,11 @@
                                                 echo ("active");
                                             }
                                             ?>" href="/customer/transaksiku">transaksiku</a>
+                        <a class="nav-link <?php
+                                            if ($session->get('page') === 'myacc') {
+                                                echo ("active");
+                                            }
+                                            ?>" href="/customer/myAcc">My Account</a>
                         <a class="ml-4 btn btn-danger" href="/customer/logout">Log Out</a>
                     <?php
                     } else {

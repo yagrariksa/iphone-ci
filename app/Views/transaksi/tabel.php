@@ -35,7 +35,7 @@
                             <td><?= esc($item['total']) ?></td>
                             <td><?= esc($item['total_barang']) ?></td>
                             <td>
-                                <a href="/customer/transaksidetail/<?= esc($item['transaksi_id']) ?>">
+                                <a href="/transaksi/detail/<?= esc($item['transaksi_id']) ?>">
                                     <button class="btn btn-primary">
                                         Lihat Detail
                                     </button>

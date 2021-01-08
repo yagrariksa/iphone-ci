@@ -5,6 +5,41 @@
         </div>
     </div>
 
+    <div class="row my-2">
+        <div class="col-12 col-md-4 col-lg-3">
+            Pembeli :
+        </div>
+        <div class="col">
+            <?= esc($customer['nama']) ?>
+        </div>
+    </div>
+
+    <div class="row my-2">
+        <div class="col-12 col-md-4 col-lg-3">
+            Alamat :
+        </div>
+        <div class="col">
+            <?= esc($customer['alamat']) ?>
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-12 col-md-4 col-lg-3">
+            Total Barang :
+        </div>
+        <div class="col">
+            <?= esc($transaksi['total_barang']) ?>
+        </div>
+    </div>
+
+    <div class="row my-2">
+        <div class="col-12 col-md-4 col-lg-3">
+            Total Harga :
+        </div>
+        <div class="col">
+            <?= esc($transaksi['total']) ?>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col">
             <table class="table">

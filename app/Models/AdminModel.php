@@ -2,11 +2,11 @@
 
 use CodeIgniter\Model;
 
-class UserModel extends Model {
+class AdminModel extends Model {
 
-    protected $table = 'user';
+    protected $table = 'admin';
 
-    protected $allowedFields = ['email', 'password','admin'];
+    protected $allowedFields = ['email', 'password'];
 
     public function getAll(){
         return $this->findAll();

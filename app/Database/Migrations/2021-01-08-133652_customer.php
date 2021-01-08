@@ -2,12 +2,12 @@
 
 use CodeIgniter\Database\Migration;
 
-class Users extends Migration
+class Customer extends Migration
 {
 	public function up()
 	{
 		$this->forge->addField([
-			'user_id'	=> [
+			'customer_id'	=> [
 				'type'				=> 'INT',
 				'constraint'    	=> 5,
 				'unsigned'      	=> true,
@@ -21,19 +21,23 @@ class Users extends Migration
 				'type'				=> 'VARCHAR',
 				'constraint'		=> 100,	
 			],
-			'admin' => [
-				'type'				=> 'BOOLEAN',
-				'default'			=> false,
-			]
+			'alamat' => [
+				'type'				=> 'VARCHAR',
+				'constraint'		=> 100,	
+			],
+			'nama' => [
+				'type'				=> 'VARCHAR',
+				'constraint'		=> 100,	
+			],
 		]);
-		$this->forge->addKey('user_id');
-		$this->forge->createTable('user');
+		$this->forge->addKey('customer_id');
+		$this->forge->createTable('customer');
 	}
 
 	//--------------------------------------------------------------------
 
 	public function down()
 	{
-		$this->forge->dropTable('user');
+		$this->forge->dropTable('customer');
 	}
 }

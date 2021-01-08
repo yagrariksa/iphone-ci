@@ -6,7 +6,7 @@ use App\Models\BarangModel;
 use App\Models\BarangTerbeliModel;
 use App\Models\KategoriModel;
 use App\Models\TransaksiModel;
-use App\Models\UserModel;
+use App\Models\CustomerModel;
 
 class Customer extends BaseController
 {
@@ -119,22 +119,21 @@ class Customer extends BaseController
     {
         $session = \Config\Services::session();
 
-        $model = new UserModel();
+        $model = new CustomerModel();
         $cartmodel = new TransaksiModel();
 
         if ($this->request->getMethod() === 'post') {
 
             $cek = $model->where('email', $this->request->getPost('email'))->first();
 
-            if ($cek != null && !$cek['admin']) {
+            if ($cek != null) {
 
                 if (password_verify($this->request->getPost('password'), $cek['password'])) {
 
-                    $mycart = $cartmodel->where('id_pembeli', $cek['user_id'])->where('status', 'KERANJANG')->first();
-                    
-                    
+                    $mycart = $cartmodel->where('id_pembeli', $cek['customer_id'])->where('status', 'KERANJANG')->first();
+
                     $this->setAuth();
-                    $session->set('user', $cek['user_id']);
+                    $session->set('user', $cek['customer_id']);
                     $session->set('cart_id', $mycart['transaksi_id']);
                     return redirect()->to('/customer');
                 } else {
@@ -160,14 +159,14 @@ class Customer extends BaseController
     {
         $session = \Config\Services::session();
 
-        $model = new UserModel();
+        $model = new CustomerModel();
         $keranjangModel = new TransaksiModel();
 
         if ($this->request->getMethod() === 'post') {
             $cek = $model->where('email', $this->request->getPost('email'))->first();
             if ($cek != null) {
 
-                $session->setFlashdata('error', 'email sudah terpakai');
+                $session->setFlashdata('error', 'username sudah terpakai');
 
                 return redirect()->back();
             } else {
@@ -175,22 +174,23 @@ class Customer extends BaseController
                 $model->save([
                     'email'        => $this->request->getPost('email'),
                     'password'    => password_hash($this->request->getPost('password'), PASSWORD_BCRYPT),
-                    'admin'     => false,
+                    'alamat'      => $this->request->getPost('alamat'),
+                    'nama'        => $this->request->getPost('nama'),
                 ]);
 
                 $cek = $model->where('email', $this->request->getPost('email'))->first();
 
                 $keranjangModel->save([
-                    'id_pembeli'    => $cek['user_id'],
+                    'id_pembeli'    => $cek['customer_id'],
                     'status'        => 'KERANJANG',
                     'total' => 0,
                     'total_barang' => 0,
                 ]);
 
-                $mycart = $keranjangModel->where('id_pembeli', $cek['user_id'])->where('status', 'KERANJANG')->first();
+                $mycart = $keranjangModel->where('id_pembeli', $cek['customer_id'])->where('status', 'KERANJANG')->first();
 
                 $this->setAuth();
-                $session->set('user', $cek['user_id']);
+                $session->set('user', $cek['customer_id']);
                 $session->set('cart_id', $mycart['transaksi_id']);
 
                 return redirect()->to('/customer');
@@ -234,6 +234,11 @@ class Customer extends BaseController
         $session->remove('user');
     }
 
+    /**
+     * 
+     * function untuk menampilkan
+     * isi keranjang belanja
+     */
     public function keranjang()
     {
         $session = \Config\Services::session();
@@ -264,6 +269,11 @@ class Customer extends BaseController
         echo view('footer');
     }
 
+    /**
+     * 
+     * function untuk menghapus
+     * suatu item dari keranjang
+     */
     public function hapusitem($id)
     {
         $session = \Config\Services::session();
@@ -276,6 +286,11 @@ class Customer extends BaseController
         return redirect()->back();
     }
 
+    /**
+     * 
+     * function untuk menampilkan
+     * detail item 
+     */
     public function detail($id)
     {
         $session = \Config\Services::session();
@@ -307,6 +322,11 @@ class Customer extends BaseController
         echo view('footer');
     }
 
+    /**
+     * 
+     * function untuk submit
+     * barang kedalam keranjang
+     */
     public function addtocart()
     {
         $session = \Config\Services::session();
@@ -320,18 +340,44 @@ class Customer extends BaseController
             $barang_id = $this->request->getPost('barang_id');
             $jumlah_beli = $this->request->getPost('jumlah_beli');
 
+            $cek = $barterModel->where('transaksi_id', $id_cart)
+                ->where('barang_id', $barang_id)->first();
+
             $barang = $barangModel->where('barang_id', $barang_id)->first();
 
-            $subtotal = (int)$jumlah_beli * (int)$barang['harga_barang'];
 
-            $barterModel->save([
-                'transaksi_id'  => $id_cart,
-                'barang_id'     => $barang['barang_id'],
-                'nama_barang'   => $barang['nama_barang'],
-                'harga_barang'  => $barang['harga_barang'],
-                'jumlah_beli'   => $jumlah_beli,
-                'subtotal'      => $subtotal,
-            ]);
+            if ($cek != null) {
+
+                $jumlah_beli = $jumlah_beli + $cek['jumlah_beli'];
+
+                $subtotal = (int)$jumlah_beli * (int)$barang['harga_barang'];
+
+                $simpan = [
+                    'transaksi_id'  => $id_cart,
+                    'barang_id'     => $barang['barang_id'],
+                    'nama_barang'   => $barang['nama_barang'],
+                    'harga_barang'  => $barang['harga_barang'],
+                    'jumlah_beli'   => $jumlah_beli,
+                    'subtotal'      => $subtotal,
+                ];
+
+                $barterModel->where('transaksi_id', $id_cart)
+                ->where('barang_id', $barang_id)->set($simpan)->update();
+            } else {
+
+
+                $subtotal = (int)$jumlah_beli * (int)$barang['harga_barang'];
+
+                $barterModel->save([
+                    'transaksi_id'  => $id_cart,
+                    'barang_id'     => $barang['barang_id'],
+                    'nama_barang'   => $barang['nama_barang'],
+                    'harga_barang'  => $barang['harga_barang'],
+                    'jumlah_beli'   => $jumlah_beli,
+                    'subtotal'      => $subtotal,
+                ]);
+            }
+
 
             return redirect()->to('/customer/keranjang');
         } else {
@@ -343,7 +389,8 @@ class Customer extends BaseController
      * 
      * function untuk POST checkout
      */
-    public function chekcout(){
+    public function chekcout()
+    {
 
         $session = \Config\Services::session();
 
@@ -359,30 +406,29 @@ class Customer extends BaseController
             // mengambil data cart
             $cart = $barterModel->where('transaksi_id', $id_cart)->findAll();
 
-            foreach($cart as $item){
+            foreach ($cart as $item) {
                 $cek = $barangModel->where('barang_id', $item['barang_id'])->first();
-                if($cek['stok_barang'] < $item['jumlah_beli']){
+                if ($cek['stok_barang'] < $item['jumlah_beli']) {
                     $session->setFlashdata('error', $cek['nama_barang'] . " out of stock");
                     return redirect()->back();
                 }
             }
 
-            $alamat = $this->request->getPost('alamat');
             // membuat random string identifier
-            do{
+            do {
                 $random = $this->getName(10);
                 $detect = $transaksiModel->where('status', $random)->first();
-            }while($detect != null);
+            } while ($detect != null);
 
             // menghitung jumlah barang
             // dan jumlah biaya
             $total_barang = 0;
             $total = 0;
-            foreach($cart as $item){
+            foreach ($cart as $item) {
                 $total_barang = $total_barang + $item['jumlah_beli'];
                 $total = $total + $item['subtotal'];
             }
-            
+
             // menyimpan transaksi
             $transaksiModel->save([
                 'id_pembeli'    => $user_id,
@@ -395,7 +441,7 @@ class Customer extends BaseController
             $current_transaksi = $transaksiModel->where('status', $random)->first();
 
             // menyimpan barang yang dibeli
-            foreach($cart as $item){
+            foreach ($cart as $item) {
                 $barterModel->save([
                     'transaksi_id'  => $current_transaksi['transaksi_id'],
                     'nama_barang'   => $item['nama_barang'],
@@ -422,7 +468,6 @@ class Customer extends BaseController
             }
 
             return redirect()->to('/customer/transaksiku');
-
         } else {
             return redirect()->to('/customer');
         }
@@ -444,7 +489,7 @@ class Customer extends BaseController
         $user = $session->get('user');
 
 
-        $data = $transaksiModel->where('id_pembeli',$user)->where('status !=','KERANJANG')->findAll();
+        $data = $transaksiModel->where('id_pembeli', $user)->where('status !=', 'KERANJANG')->findAll();
         echo view('header', [
             'title' => 'transaksiku',
         ]);
@@ -473,7 +518,7 @@ class Customer extends BaseController
         $transaksiModel = new TransaksiModel();
         $barterModel = new BarangTerbeliModel();
 
-        $transaksi = $transaksiModel->where('transaksi_id',$id)->first();
+        $transaksi = $transaksiModel->where('transaksi_id', $id)->first();
         $data = $barterModel->where('transaksi_id', $transaksi['transaksi_id'])->findAll();
 
         echo view('header', [
@@ -508,5 +553,96 @@ class Customer extends BaseController
         }
 
         return $randomString;
+    }
+
+    /**
+     * 
+     * function untuk menampilkan
+     * identitas akun
+     */
+    public function myAcc()
+    {
+        $session = \Config\Services::session();
+        $user_id = $session->get('user');
+        $session->set('page', 'myacc');
+
+        $customerModel = new CustomerModel();
+        $user = $customerModel->where('customer_id', $user_id)->first();
+
+        echo view('header', [
+            'title' => 'My Account',
+        ]);
+
+        echo view('navbar_cust', [
+            'session' => $session,
+        ]);
+
+        echo view('cust/my_acc', [
+            'data' => $user,
+        ]);
+
+        echo view('footer');
+    }
+
+    /**
+     * 
+     * function untuk menampilkan
+     * form edit identitas akun
+     */
+    public function updateacc()
+    {
+        $session = \Config\Services::session();
+        $user_id = $session->get('user');
+        $session->set('page', 'myacc');
+
+        $customerModel = new CustomerModel();
+        $user = $customerModel->where('customer_id', $user_id)->first();
+
+        echo view('header', [
+            'title' => 'My Account',
+        ]);
+
+        echo view('navbar_cust', [
+            'session' => $session,
+        ]);
+
+        echo view('cust/my_acc_update', [
+            'data' => $user,
+        ]);
+
+        echo view('footer');
+    }
+
+    /**
+     * 
+     * function untuk POST
+     * update identitas akun
+     */
+    public function postupdateacc()
+    {
+        $session = \Config\Services::session();
+        $user_id = $session->get('user');
+
+        $customerModel = new CustomerModel();
+
+        if ($this->request->getMethod() === 'post') {
+            $data = $customerModel->where('customer_id', $user_id)->first();
+            if (password_verify($this->request->getPost('oldpassword'), $data['password'])) {
+                $simpan = [
+                    'email'        => $this->request->getPost('email'),
+                    'password'    => password_hash($this->request->getPost('password'), PASSWORD_BCRYPT),
+                    'alamat'      => $this->request->getPost('alamat'),
+                    'nama'        => $this->request->getPost('nama'),
+
+                ];
+
+                $customerModel->where('customer_id', $user_id)->set($simpan)->update();
+            } else {
+                $session->setFlashdata('msg', 'GAGAL');
+            }
+            return redirect()->to('/customer/myAcc');
+        } else {
+            return redirect()->to('/customer');
+        }
     }
 }
